@@ -19,15 +19,8 @@ type Rule struct {
 	Rate      int64
 }
 
-func SetNewClient(c Client) error {
-	clientAlreadyExists := clientBucketMap[c.Name]
-
-	if clientAlreadyExists != nil {
-		return errors.New("Client already exists")
-	}
-
+func SetNewClient(c Client) {
 	clientBucketMap[c.Name] = tokenBucket.NewTokenBucket(c.FillRate, c.MaxTokens)
-	return nil
 }
 
 func GetBucket(identifier string) (*tokenBucket.TokenBucket, error) {
