@@ -37,5 +37,7 @@ func handleCreateClient(c echo.Context) error {
 	newClient := client.Client{}
 	c.Bind(&newClient)
 
+	client.SetNewClient(newClient)
+
 	return c.JSON(http.StatusCreated, newClient)
 }
