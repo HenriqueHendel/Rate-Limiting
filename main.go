@@ -2,18 +2,20 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/henriquehendel/rateLimiting/client"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
+	port := os.Getenv("PORT")
 	server := echo.New()
 
 	server.GET("/", handleTokenedRequest)
 	server.POST("/client", handleCreateClient)
 
-	server.Logger.Fatal(server.Start(":3333"))
+	server.Logger.Fatal(server.Start(":" + port))
 }
 
 func handleTokenedRequest(c echo.Context) error {
